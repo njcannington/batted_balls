@@ -1,0 +1,43 @@
+ul.navigation,
+ul.navigation ul {
+    margin:10px;
+    width:900px;
+}
+
+ul.navigation li {
+    display:block;
+    width:120px;
+    float:left;
+    margin-left:2px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+table {
+    width: 100%;
+    border-collapse:  collapse;
+}
+
+th.selected {
+    background-color: #add8e6;
+}
+
+a.order {
+    text-decoration:none;
+    font-weight: bold;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+
+

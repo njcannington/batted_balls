@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>{% block title %}Batters{% endblock %}</h1>
+
+<label for="batter">Select a Batter:</label>
+<form action="{{ url_for('batters') }}" method="post">
+    <input type="text" id="batter" name="batter" list="batter-list">
+    <datalist id="batter-list">
+        {% for batter in data.batters %}
+        <option>{{ batter }}</option>
+        {% endfor %}
+    </datalist>
+    <input type="submit">
+</form>
+
+<br/>
+{% if data.batted_balls is not none %}
+<table>
+    <tr>
+        {% for column in data.columns %}
+        <th class="{{ 'selected' if data.sort == column[0] }}">
+            {{ column[1] }}
+            (<a class="order" href="{{ url_for('batters', name=data.batter, sort=column[0], is_asc=true) }}">&uarr;</a> / <a class="order" href="{{ url_for('batters', name=data.batter, sort=column[0], is_asc=false) }}">&darr;</a>)
+        </th>
+        {% endfor %}
+    </tr>
+    {% for index, row in data.batted_balls.iterrows() %}
+    <tr>
+        {% for column in data.columns %}
+        {% if column[0] == "VIDEO_LINK" %}
+        <td><a href="{{ row[column[0]] }}"  target="_blank">video link</a></td>
+        {% else %}
+        <td>{{ row[column[0]] }}</td>
+        {% endif %}
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <title>Batted Balls</title>
+</head>
+<body>
+
+<!--nav bar-->
+<ul class="navigation">
+    <li><a href="{{ url_for('index')}}">Batted Balls</a></li>
+    <li><a href="{{ url_for('pitchers')}}">Pitchers</a></li>
+    <li><a href="{{ url_for('batters')}}">Batters</a></li>
+    <li><a href="{{ url_for('matchups')}}">Matchups</a></li>
+</ul>
+
+<br/>
+<!--container-->
+<div class="container">
+    {% block content %} {% endblock %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>{% block title %}Batted Balls{% endblock %}</h1>
+
+<!--display batted ball data-->
+<table>
+    <tr>
+        {% for column in data.columns %}
+        <th class="{{ 'selected' if data.sort == column[0] }}">
+            {{ column[1] }}
+            (<a class="order" href="{{ url_for('index', sort=column[0], is_asc=true,  page=0,) }}">&uarr;</a> / <a class="order" href="{{ url_for('index', page=0, sort=column[0], is_asc=false) }}">&darr;</a>)
+        </th>
+        {% endfor %}
+    </tr>
+    {% for index, row in data.batted_balls.iterrows() %}
+    <!--limit table results to pagination settings-->
+    {% if data.pagination.index_start <= index <= data.pagination.index_end %}
+    <tr>
+        {% for column in data.columns %}
+            {% if column[0] == "VIDEO_LINK" %}
+            <td><a href="{{ row[column[0]] }}"  target="_blank">video link</a></td>
+            {% else %}
+            <td>{{ row[column[0]] }}</td>
+            {% endif %}
+        {% endfor %}
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+
+<!--pagination options-->
+{% if data.pagination.current_page != 0 %}
+<a class="left" href="{{ url_for('index', sort=data.sort, page=data.pagination.previous_page, is_asc=data.is_asc) }}">Previous</a>
+{% endif %}
+
+{% if data.pagination.current_page < data.pagination.max_page %}
+<a class="right" href="{{ url_for('index', sort=data.sort, page=data.pagination.next_page, is_asc=data.is_asc) }}">Next</a>
+{% endif %}
+
+{% endblock %}
